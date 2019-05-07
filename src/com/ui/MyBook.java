@@ -5,12 +5,73 @@
  */
 package com.ui;
 
+import com.controller.BookController;
+import com.entity.Users;
+import java.awt.Component;
+import java.awt.Point;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author tiny
  */
 public class MyBook extends javax.swing.JFrame {
 
+    private Users user;
+    
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+        txtUsername.setText("Welcome "+user.getUsername());
+    }
+
+    // Use default table model for the solution
+    DefaultTableModel tblModel;
+    BookController bookController;
+
+    // Show all books to tbltable
+    public void showAllBooks() {
+        bookController = new BookController();
+        try {
+            bookController.list(tblBook);
+        } catch (Exception ex) {
+            Logger.getLogger(MyBook.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    // Search books
+    public void searchBooks() {
+        try {
+            // Create a list of column names of book table, this one should be matched dropdownist
+            String[] column = {
+                "books.title_id",
+                "books.title",
+                "publishers.pub_name",
+                "authors.au_name",
+                "books.notes"
+            };
+            // Collect column name and keyword
+            String columnName = column[cboColumn.getSelectedIndex()];
+            String keyword = txtKeyword.getText();
+            // Search and output the result
+            bookController.search(columnName, keyword, tblBook);
+        } catch (Exception ex) {
+            Logger.getLogger(MyBook.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(tblBook.getRowCount() <= 0) {
+            JOptionPane.showMessageDialog(MyBook.this, "Not found any Book");
+        }
+    }
+    
     /**
      * Creates new form MyBook
      */
@@ -18,6 +79,30 @@ public class MyBook extends javax.swing.JFrame {
         initComponents();
     }
 
+    // Resize the columns of table
+    public void resizeColumnWidth(JTable table) {
+        final TableColumnModel columnModel = table.getColumnModel();
+        for (int column = 0; column < table.getColumnCount(); column++) {
+            int width = 45; // Min width
+            for (int row = 1; row < table.getRowCount(); row++) {
+                TableCellRenderer renderer = table.getCellRenderer(row, column);
+                Component comp = table.prepareRenderer(renderer, row, column);
+                width = Math.max(comp.getPreferredSize().width + 1, width);
+            }
+            if(width>150) {
+                width = 150;
+            }
+            columnModel.getColumn(column).setPreferredWidth(width);
+        }
+    }
+
+    // Return bookID of selected book
+    public String getSelectedBookID() {
+        int row = tblBook.getSelectedRow();
+        int column = 0;
+        return tblModel.getValueAt(row, column).toString();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,21 +112,150 @@ public class MyBook extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        cboColumn = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        txtKeyword = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
+        btnAddNew = new javax.swing.JButton();
+        txtUsername = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblBook = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Search Book"));
+        jPanel1.setName(""); // NOI18N
+
+        jLabel1.setText("Search by");
+
+        jLabel2.setText("Enter keyword");
+
+        txtKeyword.setText("type here anything...");
+
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(cboColumn, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cboColumn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        btnAddNew.setText("Add New");
+        btnAddNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddNewActionPerformed(evt);
+            }
+        });
+
+        txtUsername.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        txtUsername.setText("Welcome");
+
+        tblBook.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblBook.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblBookMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblBook);
+
+        jScrollPane2.setViewportView(jScrollPane1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAddNew)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtUsername)
+                        .addGap(114, 114, 114))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddNew)
+                    .addComponent(txtUsername))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        searchBooks();
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnAddNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewActionPerformed
+        // Open add new form
+        AddBook addBook = new AddBook(this, true);
+        addBook.setVisible(true);
+    }//GEN-LAST:event_btnAddNewActionPerformed
+
+    /* When users select a table row and double click on it, open a new form
+    and output information of selected book in detail */
+    private void tblBookMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBookMousePressed
+        JTable table = (JTable) evt.getSource();
+        Point point = evt.getPoint();
+        int row = table.rowAtPoint(point);
+        if (evt.getClickCount() == 2 && row != -1) {
+            EditBook editBook = new EditBook(this, true);
+            editBook.setVisible(true);
+        }
+    }//GEN-LAST:event_tblBookMousePressed
 
     /**
      * @param args the command line arguments
@@ -79,5 +293,16 @@ public class MyBook extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddNew;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JComboBox<String> cboColumn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tblBook;
+    private javax.swing.JTextField txtKeyword;
+    private javax.swing.JLabel txtUsername;
     // End of variables declaration//GEN-END:variables
 }
