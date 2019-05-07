@@ -7,49 +7,67 @@ package com.controller;
 
 import com.dal.BookDAO;
 import com.entity.Book;
+import java.util.List;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author tiny
  */
 public class BookController {
-    
+
     private BookDAO bookDAO;
-    
-    //ctor
+
+    // Contructors
     public BookController() {
         bookDAO = new BookDAO();
     }
-    
-    //add a new book to database
+
+    // Add a new book to database
     public void add(Book b) throws Exception {
         bookDAO.addBook(b);
     }
-    
-    //output list of all available books to jtable
+
+    // Output list of all available books to jtable
     public void list(JTable tblBook) throws Exception {
-        throw new UnsupportedOperationException("Remove this line and implement your code here!");
+        // Get current model of table
+        DefaultTableModel model = (DefaultTableModel) tblBook.getModel();
+        // Clear old data on table
+        model.setRowCount(0);
+        // Get all available books and output to tblBook
+        List<Book> books = bookDAO.selectAll();
+        for (Book b : books) {
+            model.addRow(b.toDataRow());
+        }
     }
-    
-    //search and output the list of all availables books to jtable
-    public void search(String column, String keyword,JTable tblBook) throws Exception {
-        throw new UnsupportedOperationException("Remove this line and implement your code here!");
+
+    // Search and output the list of all availables books to jtable
+    public void search(String column, String keyword, JTable tblBook) throws Exception {
+        // Get current model of table
+        DefaultTableModel model = (DefaultTableModel) tblBook.getModel();
+        // Clear old data on table
+        model.setRowCount(0);
+        // Get all available books and output to tblBook
+        List<Book> books = bookDAO.select(column, keyword);
+        for (Book b : books) {
+            model.addRow(b.toDataRow());
+        }
     }
-    
-    //return information of a Book by Book ID
-    public Book getBookByBookID(String bookID)throws Exception {
-        throw new UnsupportedOperationException("Remove this line and implement your code here!");
+
+    // Return information of a Book by Book ID
+    public Book getBookByBookID(String bookID) throws Exception {
+        return bookDAO.getBookByBookID(bookID);
     }
-    
-    //update information of a Book
-    public void editBook(Book b)throws Exception  {
-        throw new UnsupportedOperationException("Remove this line and implement your code here!");
+
+    // Update information of a Book
+    public void editBook(Book b) throws Exception {
+        bookDAO.editBook(b);
     }
-    
-    //delete a book by BookID
-    public void deleteBook(String bookID)throws Exception  {
-        throw new UnsupportedOperationException("Remove this line and implement your code here!");
+
+    // Delete a book by BookID
+    public void deleteBook(String bookID) throws Exception {
+        bookDAO.deleteBook(bookID);
     }
-    
+
 }
