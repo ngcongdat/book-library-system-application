@@ -14,13 +14,13 @@ public class Users {
     // Declare instances
     private String username, displayName, password, description;
 
+    // Contructors
+    public Users() {
+    }
+    
     public Users(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-
-    // Contructors
-    public Users() {
     }
 
     public Users(String username, String displayName, String password, String description) {
