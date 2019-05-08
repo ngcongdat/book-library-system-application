@@ -11,44 +11,44 @@ package com.entity;
  */
 public class TitleAuthor {
 
-    // Declare instances
-    private Book book;
-    private Author author;
-    private int authorOrder;
+  // Declare instances
+  private Book book;
+  private Author author;
+  private int authorOrder;
 
-    // Contructors
-    public TitleAuthor() {
-    }
+  // Contructors
+  public TitleAuthor() {
+  }
 
-    public TitleAuthor(Book book, Author author, int authorOrder) {
-        this.book = book;
-        this.author = author;
-        this.authorOrder = authorOrder;
-    }
+  public TitleAuthor(Book book, Author author, int authorOrder) {
+    this.book = book;
+    this.author = author;
+    this.authorOrder = authorOrder;
+  }
 
-    // Getter - Setter
-    public Book getBook() {
-        return book;
-    }
+  // Getter - Setter
+  public Book getBook() {
+    return book;
+  }
 
-    public void setBook(Book book) {
-        this.book = book;
-    }
+  public void setBook(Book book) {
+    this.book = book;
+  }
 
-    public Author getAuthor() {
-        return author;
-    }
+  public Author getAuthor() {
+    return author;
+  }
 
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
+  public void setAuthor(Author author) {
+    this.author = author;
+  }
 
-    public int getAuthorOrder() {
-        return authorOrder;
-    }
+  public int getAuthorOrder() {
+    return authorOrder;
+  }
 
-    public void setAuthorOrder(int authorOrder) {
-        this.authorOrder = authorOrder;
-    }
+  public void setAuthorOrder(int authorOrder) {
+    this.authorOrder = authorOrder;
+  }
 
 }

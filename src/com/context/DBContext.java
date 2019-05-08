@@ -13,22 +13,21 @@ import java.sql.DriverManager;
  * @author tiny
  */
 public class DBContext {
-    
-    /*USE BELOW METHOD FOR YOUR DATABASE CONNECTION FOR BOTH SINGLE AND MULTILPE SQL SERVER INSTANCE(s)*/
-    /*DO NOT EDIT THE BELOW METHOD, YOU MUST USE ONLY THIS ONE FOR YOUR DATABASE CONNECTION*/
-     public Connection getConnection()throws Exception {
-        String url = "jdbc:sqlserver://"+serverName+":"+portNumber +";databaseName="+dbName;
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        return DriverManager.getConnection(url, userID, password);
-    }
-    
-    /*Insert your other code right after this comment*/
-   
-    /*Change/update information of your database connection, DO NOT change name of instance variables in this class*/
-    private final String serverName = "localhost";
-    private final String dbName = "BookDB";
-    private final String portNumber = "1433>";
-    private final String userID = "SA";
-    private final String password = "NcDat!08102407";
-    
+
+  /*USE BELOW METHOD FOR YOUR DATABASE CONNECTION FOR BOTH SINGLE AND MULTILPE SQL SERVER INSTANCE(s)*/
+ /*DO NOT EDIT THE BELOW METHOD, YOU MUST USE ONLY THIS ONE FOR YOUR DATABASE CONNECTION*/
+  public Connection getConnection() throws Exception {
+    String url = "jdbc:sqlserver://" + serverName + ":" + portNumber + ";databaseName=" + dbName;
+    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+    return DriverManager.getConnection(url, userID, password);
+  }
+
+  /*Insert your other code right after this comment*/
+ /*Change/update information of your database connection, DO NOT change name of instance variables in this class*/
+  private final String serverName = "localhost";
+  private final String dbName = "BookDB";
+  private final String portNumber = "1433";
+  private final String userID = "SA";
+  private final String password = "NcDat!08102407";
+
 }

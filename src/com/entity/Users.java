@@ -11,56 +11,56 @@ package com.entity;
  */
 public class Users {
 
-    // Declare instances
-    private String username, displayName, password, description;
+  // Declare instances
+  private String username, displayName, password, description;
 
-    // Contructors
-    public Users() {
-    }
-    
-    public Users(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
+  // Contructors
+  public Users() {
+  }
 
-    public Users(String username, String displayName, String password, String description) {
-        this.username = username;
-        this.displayName = displayName;
-        this.password = password;
-        this.description = description;
-    }
+  public Users(String username, String password) {
+    this.username = username;
+    this.password = password;
+  }
 
-    // Getter - Setter
-    public String getUsername() {
-        return username;
-    }
+  public Users(String username, String displayName, String password, String description) {
+    this.username = username;
+    this.displayName = displayName;
+    this.password = password;
+    this.description = description;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  // Getter - Setter
+  public String getUsername() {
+    return username;
+  }
 
-    public String getDisplayName() {
-        return displayName;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
+  public String getDisplayName() {
+    return displayName;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public void setDisplayName(String displayName) {
+    this.displayName = displayName;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
 }
