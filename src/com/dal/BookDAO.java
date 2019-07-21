@@ -24,16 +24,16 @@ public class BookDAO {
   // Delete a book by a given bookID
   public void deleteBook(String bookID) throws Exception {
     // Firstly delete that book from TitleAuthor
-    String insert = "delete from TitleAuthor where title_id = ?";
+    String deleteFirst = "delete from TitleAuthor where title_id = ?";
     Connection conn = new DBContext().getConnection();
-    PreparedStatement ps = conn.prepareStatement(insert);
+    PreparedStatement ps = conn.prepareStatement(deleteFirst);
     // Specify the value for parameter
     ps.setString(1, bookID);
     ps.executeUpdate();
     ps.close();
     // Secondly delete from Book
-    String delete = "delete from Books where title_id = ?";
-    ps = conn.prepareStatement(delete);
+    String deleteSecond = "delete from Books where title_id = ?";
+    ps = conn.prepareStatement(deleteSecond);
     ps.setString(1, bookID);
     ps.executeUpdate();
     ps.close();
@@ -53,8 +53,8 @@ public class BookDAO {
     ps.executeUpdate();
     ps.close();
     // Secondly update TitleAuthor, remove all old authors of given book
-    String delect = "Delete from TitleAuthor where title_id = ?";
-    ps = conn.prepareStatement(delect);
+    String delete = "Delete from TitleAuthor where title_id = ?";
+    ps = conn.prepareStatement(delete);
     ps.setString(1, b.getId());
     ps.executeUpdate();
     ps.close();
@@ -76,7 +76,7 @@ public class BookDAO {
   // Insert a new book to database
   public void addBook(Book b) throws Exception {
     // Firstly insert into Book table
-    String insert = "insert into Books value(?,?,?,?,?)";
+    String insert = "insert into Books values(?,?,?,?,?)";
     Connection conn = new DBContext().getConnection();
     PreparedStatement ps = conn.prepareStatement(insert);
     // Specify the value for parameter
@@ -128,15 +128,15 @@ public class BookDAO {
       b = new Book(id, title, note, pub, authors);
     }
     rs.close();
-    ps.close();
+    conn.close();
     return b;
   }
 
   // Return the list of books - use for searching, need to join all given tables except Users
   public List<Book> select(String columnName, String keyword) throws Exception {
     String select = "Select distinct Books.* from Books, Publishers, Authors, TitleAuthor where "
-            + " books.pub_id = Publishers.pub_id and books.title_id = TitleAuthor.title_id and TitleAuthor.au_id "
-            + columnName + " like '%" + keyword + "%'";
+            + " books.pub_id = Publishers.pub_id and books.title_id = TitleAuthor.title_id and TitleAuthor.au_id = Authors.au_id and ";
+    select += columnName + " like '%" + keyword + "%'";
     Connection conn = new DBContext().getConnection();
     PreparedStatement ps = conn.prepareStatement(select);
     ResultSet rs = ps.executeQuery();
@@ -184,7 +184,7 @@ public class BookDAO {
       books.add(new Book(id, title, note, pub, authors));
     }
     rs.close();
-    ps.close();
+    conn.close();
     return books;
   }
 

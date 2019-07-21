@@ -33,7 +33,7 @@ public class AuthorDAO {
       authors.add(new Author(id, name, address));
     }
     rs.close();
-    ps.close();
+    conn.close();
     return authors;
   }
 
@@ -65,7 +65,7 @@ public class AuthorDAO {
       authors.add(new Author(id, name, address));
     }
     rs.close();
-    ps.close();
+    conn.close();
     return authors;
   }
 
