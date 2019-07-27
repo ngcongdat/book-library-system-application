@@ -29,6 +29,8 @@
                   <Component id="jPanel1" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="btnAddNew" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnAddNewUser" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="txtUsername" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
@@ -50,6 +52,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnAddNew" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtUsername" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAddNewUser" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
@@ -189,5 +192,13 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="btnAddNewUser">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Add User"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddNewUserActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

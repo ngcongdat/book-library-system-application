@@ -72,6 +72,15 @@ public class MyBook extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(MyBook.this, "Not found any Book");
     }
   }
+  
+  public void addNewUser() {
+    if(user.getAdminstrator() == 1) {
+      AddUser addUser = new AddUser(this, true);
+      addUser.setVisible(true);
+    } else {
+      JOptionPane.showMessageDialog(MyBook.this, "You do not have access");
+    }
+  }
 
   /**
    * Creates new form MyBook
@@ -135,6 +144,7 @@ public class MyBook extends javax.swing.JFrame {
     jScrollPane2 = new javax.swing.JScrollPane();
     jScrollPane1 = new javax.swing.JScrollPane();
     tblBook = new javax.swing.JTable();
+    btnAddNewUser = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -216,6 +226,13 @@ public class MyBook extends javax.swing.JFrame {
 
     jScrollPane2.setViewportView(jScrollPane1);
 
+    btnAddNewUser.setText("Add User");
+    btnAddNewUser.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnAddNewUserActionPerformed(evt);
+      }
+    });
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -226,6 +243,8 @@ public class MyBook extends javax.swing.JFrame {
           .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addGroup(layout.createSequentialGroup()
             .addComponent(btnAddNew)
+            .addGap(18, 18, 18)
+            .addComponent(btnAddNewUser)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(txtUsername)
             .addGap(114, 114, 114))
@@ -242,7 +261,8 @@ public class MyBook extends javax.swing.JFrame {
         .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(btnAddNew)
-          .addComponent(txtUsername))
+          .addComponent(txtUsername)
+          .addComponent(btnAddNewUser))
         .addContainerGap(20, Short.MAX_VALUE))
     );
 
@@ -270,6 +290,11 @@ public class MyBook extends javax.swing.JFrame {
         editBook.setVisible(true);
       }
     }//GEN-LAST:event_tblBookMousePressed
+
+  private void btnAddNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewUserActionPerformed
+    // TODO add your handling code here:
+    addNewUser();
+  }//GEN-LAST:event_btnAddNewUserActionPerformed
 
   /**
    * @param args the command line arguments
@@ -308,6 +333,7 @@ public class MyBook extends javax.swing.JFrame {
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton btnAddNew;
+  private javax.swing.JButton btnAddNewUser;
   private javax.swing.JButton btnSearch;
   private javax.swing.JComboBox<String> cboColumn;
   private javax.swing.JLabel jLabel1;

@@ -31,7 +31,8 @@ public class UsersDAO {
       String displayName = rs.getString("displayname");
       String password = rs.getString("password");
       String description = rs.getString("description");
-      users.add(new Users(username, displayName, password, description));
+      int admin = rs.getInt("adminstrator");
+      users.add(new Users(username, displayName, password, description, admin));
     }
     rs.close();
     conn.close();
@@ -50,7 +51,8 @@ public class UsersDAO {
       String displayName = rs.getString("displayname");
       String password = rs.getString("password");
       String description = rs.getString("description");
-      u = new Users(username, displayName, password, description);
+      int admin = rs.getInt("adminstrator");
+      u = new Users(username, displayName, password, description, admin);
     }
     rs.close();
     ps.close();

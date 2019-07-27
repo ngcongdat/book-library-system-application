@@ -114,7 +114,7 @@ public class Login extends javax.swing.JFrame {
         Users u = new Users(username, password);
         if (new UsersDAO().validUser(u)) {
           MyBook m = new MyBook();
-          m.setUser(u);
+          m.setUser(new UsersDAO().getUserByUsername(username));
           m.setVisible(true);
           dispose();
         } else {

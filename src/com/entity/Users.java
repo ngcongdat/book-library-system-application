@@ -13,6 +13,7 @@ public class Users {
 
   // Declare instances
   private String username, displayName, password, description;
+  private int adminstrator;
 
   // Contructors
   public Users() {
@@ -23,11 +24,12 @@ public class Users {
     this.password = password;
   }
 
-  public Users(String username, String displayName, String password, String description) {
+  public Users(String username, String displayName, String password, String description, int adminstrator) {
     this.username = username;
     this.displayName = displayName;
     this.password = password;
     this.description = description;
+    this.adminstrator = adminstrator;
   }
 
   // Getter - Setter
@@ -61,6 +63,14 @@ public class Users {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+  
+  public int getAdminstrator() {
+    return adminstrator;
+  }
+  
+  public void setAdminstrator(int adminstrator) {
+    this.adminstrator = adminstrator;
   }
 
 }
