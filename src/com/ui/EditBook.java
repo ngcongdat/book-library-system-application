@@ -10,6 +10,7 @@ import com.dal.PublisherDAO;
 import com.entity.Author;
 import com.entity.Book;
 import com.entity.Publisher;
+import com.entity.Users;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
@@ -33,11 +34,14 @@ public class EditBook extends javax.swing.JDialog {
   // Model for combobox
   DefaultComboBoxModel<Publisher> modelPublishers;
   
+  private static Users user;
+  
    // Creates new form EditBook
-  public EditBook(java.awt.Frame parent, boolean modal) {
+  public EditBook(java.awt.Frame parent, boolean modal, Users u) {
     super(parent, modal);
         initComponents();
         myBook = (MyBook) parent;
+        user = u;
         //set model for list
         lstAvailableAuthors.setModel(modelAvailableAuthors = new DefaultListModel<>());
         lstSelectedAuthors.setModel(modelSelectedAuthor = new DefaultListModel<>());
@@ -88,6 +92,10 @@ public class EditBook extends javax.swing.JDialog {
         // Remove selected authors from left list
         modelAvailableAuthors.removeElement(a);
       }
+      if(book.getUser().getUsername().equals(user.getUsername())) {
+        btnDelete.enable(true);
+      }
+      
     } catch (Exception ex) {
       Logger.getLogger(EditBook.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -175,7 +183,7 @@ public class EditBook extends javax.swing.JDialog {
       }
     });
 
-    btnRemove.setText(">");
+    btnRemove.setText("<");
     btnRemove.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         btnRemoveActionPerformed(evt);
@@ -199,6 +207,7 @@ public class EditBook extends javax.swing.JDialog {
     jLabel11.setText("Notes");
 
     btnDelete.setText("Delete");
+    btnDelete.setEnabled(false);
     btnDelete.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         btnDeleteActionPerformed(evt);
@@ -366,7 +375,7 @@ public class EditBook extends javax.swing.JDialog {
         // Confirm before delete
         if (JOptionPane.showConfirmDialog(EditBook.this, "Do you wanna delete this book?", "Confirmation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
           myBook.bookController.deleteBook(txtBookID.getText());
-          JOptionPane.showMessageDialog(EditBook.this, "A Book " + txtBookID.getText() + "has been deleted");
+          JOptionPane.showMessageDialog(EditBook.this, "A Book " + txtBookID.getText() + " has been deleted");
           dispose();
           // Reload the list
           myBook.showAllBooks();
@@ -431,7 +440,7 @@ public class EditBook extends javax.swing.JDialog {
     /* Create and display the dialog */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        EditBook dialog = new EditBook(new javax.swing.JFrame(), true);
+        EditBook dialog = new EditBook(new javax.swing.JFrame(), true, user);
         dialog.addWindowListener(new java.awt.event.WindowAdapter() {
           @Override
           public void windowClosing(java.awt.event.WindowEvent e) {

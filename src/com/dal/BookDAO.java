@@ -9,6 +9,7 @@ import com.context.DBContext;
 import com.entity.Author;
 import com.entity.Book;
 import com.entity.Publisher;
+import com.entity.Users;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,7 +50,7 @@ public class BookDAO {
     ps.setString(1, b.getTitle());
     ps.setString(2, b.getPub().getId());
     ps.setString(3, b.getNote());
-    ps.setString(4, b.getNote());
+    ps.setString(4, b.getId());
     ps.executeUpdate();
     ps.close();
     // Secondly update TitleAuthor, remove all old authors of given book
@@ -115,17 +116,22 @@ public class BookDAO {
     PublisherDAO pubDAO = new PublisherDAO();
     // Use to get the information of a list of authors of the book
     AuthorDAO authorDAO = new AuthorDAO();
+    // Use to get information of user
+    UsersDAO usersDAO = new UsersDAO();
     Book b = null;
     while (rs.next()) {
       String id = rs.getString("title_id");
       String title = rs.getString("title");
       String pubID = rs.getString("pub_id");
       String note = rs.getString("notes");
+      String username = rs.getString("username");
       // Get publisher of the book
       Publisher pub = pubDAO.getPublisherByID(pubID);
+      // Get user of the book
+      Users user = usersDAO.getUserByUsername(username);
       // Get list of authors of the book
       List<Author> authors = authorDAO.selectAuthorsByBookID(id);
-      b = new Book(id, title, note, pub, authors);
+      b = new Book(id, title, note, pub, authors, user);
     }
     rs.close();
     conn.close();
@@ -157,7 +163,7 @@ public class BookDAO {
       books.add(new Book(id, title, note, pub, authors));
     }
     rs.close();
-    ps.close();
+    conn.close();
     return books;
   }
 

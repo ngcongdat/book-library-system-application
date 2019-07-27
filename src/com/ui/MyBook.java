@@ -266,7 +266,7 @@ public class MyBook extends javax.swing.JFrame {
       Point point = evt.getPoint();
       int row = table.rowAtPoint(point);
       if (evt.getClickCount() == 2 && row != -1) {
-        EditBook editBook = new EditBook(this, true);
+        EditBook editBook = new EditBook(this, true, user);
         editBook.setVisible(true);
       }
     }//GEN-LAST:event_tblBookMousePressed

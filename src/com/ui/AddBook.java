@@ -307,7 +307,7 @@ public class AddBook extends javax.swing.JDialog {
         // Collect data on the form
         String bookID = txtBookID.getText().trim();
         String bookTitle = txtBookTitle.getText().trim();
-        Publisher pub = (Publisher) cboPublisher.getSelectedItem();
+        Publisher pub = ((Publisher) cboPublisher.getSelectedItem());
         String notes = txtNote.getText().trim();
         // Get the list of authors of the book
         List<Author> authors = Collections.list(modelSelectedAuthor.elements());
@@ -339,7 +339,7 @@ public class AddBook extends javax.swing.JDialog {
       return false;
     }
     if (myBook.bookController.getBookByBookID(b.getId()) != null) {
-      JOptionPane.showMessageDialog(AddBook.this, "BookID cannot be empty", "Alert", JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(AddBook.this, "BookID must be unique", "Alert", JOptionPane.ERROR_MESSAGE);
       txtBookID.requestFocus();
       return false;
     }
