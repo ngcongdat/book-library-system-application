@@ -145,6 +145,7 @@ public class MyBook extends javax.swing.JFrame {
     jScrollPane1 = new javax.swing.JScrollPane();
     tblBook = new javax.swing.JTable();
     btnAddNewUser = new javax.swing.JButton();
+    btnMyInfo = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -233,6 +234,13 @@ public class MyBook extends javax.swing.JFrame {
       }
     });
 
+    btnMyInfo.setText("My Info");
+    btnMyInfo.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnMyInfoActionPerformed(evt);
+      }
+    });
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -245,6 +253,8 @@ public class MyBook extends javax.swing.JFrame {
             .addComponent(btnAddNew)
             .addGap(18, 18, 18)
             .addComponent(btnAddNewUser)
+            .addGap(18, 18, 18)
+            .addComponent(btnMyInfo)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(txtUsername)
             .addGap(114, 114, 114))
@@ -262,7 +272,8 @@ public class MyBook extends javax.swing.JFrame {
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(btnAddNew)
           .addComponent(txtUsername)
-          .addComponent(btnAddNewUser))
+          .addComponent(btnAddNewUser)
+          .addComponent(btnMyInfo))
         .addContainerGap(20, Short.MAX_VALUE))
     );
 
@@ -295,6 +306,12 @@ public class MyBook extends javax.swing.JFrame {
     // TODO add your handling code here:
     addNewUser();
   }//GEN-LAST:event_btnAddNewUserActionPerformed
+
+  private void btnMyInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyInfoActionPerformed
+    // TODO add your handling code here:
+    MyInfo myInfo = new MyInfo(this, true);
+    myInfo.setVisible(true);
+  }//GEN-LAST:event_btnMyInfoActionPerformed
 
   /**
    * @param args the command line arguments
@@ -334,6 +351,7 @@ public class MyBook extends javax.swing.JFrame {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton btnAddNew;
   private javax.swing.JButton btnAddNewUser;
+  private javax.swing.JButton btnMyInfo;
   private javax.swing.JButton btnSearch;
   private javax.swing.JComboBox<String> cboColumn;
   private javax.swing.JLabel jLabel1;
