@@ -72,9 +72,9 @@ public class MyBook extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(MyBook.this, "Not found any Book");
     }
   }
-  
+
   public void addNewUser() {
-    if(user.getAdminstrator() == 1) {
+    if (user.getAdminstrator() == 1) {
       AddUser addUser = new AddUser(this, true);
       addUser.setVisible(true);
     } else {

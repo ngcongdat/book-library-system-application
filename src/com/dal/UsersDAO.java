@@ -69,5 +69,20 @@ public class UsersDAO {
     }
     return false;
   }
-  
+
+  // Add new user
+  public void addUser(Users u) throws Exception {
+    String insert = "insert into Users values (?,?,?,?,?)";
+    Connection conn = new DBContext().getConnection();
+    PreparedStatement ps = conn.prepareStatement(insert);
+    ps.setString(1, u.getUsername());
+    ps.setString(2, u.getDisplayName());
+    ps.setString(3, u.getPassword());
+    ps.setString(4, u.getDescription());
+    ps.setInt(5, u.getAdminstrator());
+    ps.executeUpdate();
+    ps.close();
+    conn.close();
+  }
+
 }
