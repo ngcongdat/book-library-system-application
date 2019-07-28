@@ -5,6 +5,9 @@
  */
 package com.ui;
 
+import com.entity.Users;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author tiny
@@ -188,13 +191,44 @@ public class AddUser extends javax.swing.JDialog {
   }// </editor-fold>//GEN-END:initComponents
 
   private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-    // TODO add your handling code here:
+    String username = txtUsername.getText().trim();
+    String password = new String(txtPassword.getPassword());
+    String displayName = txtDisplayName.getText();
+    String description = txtDescription.getText();
+    int adminstrator = 0;
+    if(ckbAdmin.isSelected()) {
+     adminstrator =  1;
+}
+    Users u = new Users(username, displayName, password, description, adminstrator);
+    if(validUser(u)) {
+      
+    }
+    
   }//GEN-LAST:event_btnSaveActionPerformed
 
   private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
     dispose();
   }//GEN-LAST:event_btnCloseActionPerformed
 
+  private boolean validUser(Users u) {
+    if(u.getUsername().isEmpty()) {
+      JOptionPane.showMessageDialog(AddUser.this, "Username cannot be empty", "Alert", JOptionPane.ERROR_MESSAGE);
+      txtUsername.requestFocus();
+      return false;
+    }
+    if(u.getPassword().isEmpty()) {
+      JOptionPane.showMessageDialog(AddUser.this, "Password cannot be empty", "Alert", JOptionPane.ERROR_MESSAGE);
+      txtPassword.requestFocus();
+      return false;
+    }
+    if(u.getDisplayName().isEmpty()) {
+      JOptionPane.showMessageDialog(AddUser.this, "Display name cannot be empty", "Alert", JOptionPane.ERROR_MESSAGE);
+      txtDisplayName.requestFocus();
+      return false;
+    }
+    return true;
+  }
+  
   /**
    * @param args the command line arguments
    */

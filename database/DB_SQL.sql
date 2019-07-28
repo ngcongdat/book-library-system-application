@@ -153,3 +153,11 @@ INSERT [dbo].TitleAuthor ([au_id], [title_id], [au_ord]) VALUES (N'899-46-2035',
 INSERT [dbo].TitleAuthor ([au_id], [title_id], [au_ord]) VALUES (N'899-46-2035', N'PS2091', 2);
 INSERT [dbo].TitleAuthor ([au_id], [title_id], [au_ord]) VALUES (N'998-72-3567', N'PS2091', 1);
 INSERT [dbo].TitleAuthor ([au_id], [title_id], [au_ord]) VALUES (N'998-72-3567', N'PS2106', 1);
+
+ALTER TABLE [dbo].[Users]
+	ADD [Adminstrator] TINYINT NULL;
+GO
+UPDATE [dbo].[Users]
+SET [Adminstrator] = 1
+WHERE [UserName] = 'sa';
+GO
